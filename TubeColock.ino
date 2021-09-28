@@ -178,16 +178,11 @@ void loop()
     sprintf(tubeOutput, "%s", timeDsp);
 
   // -------------------------------------------
-  // display the current count
+  // display the time string
   for (int i = 0; i < 6; i++)
   {
     numToDigit(tubeOutput, i);
 
-    // on hours < 10 do not display  the ZERO
-    // on the last tube insted leave the loop
-    if (i == 6 && tubeOutput[0] == '0')
-      break;
-      
     delay(3);
   }
 
@@ -262,25 +257,26 @@ void numToDigit(char timeString[], int plexer)
       digitalWrite(2, LOW);
       digitalWrite(3, LOW);
       digitalWrite(4, LOW);
-      digitalWrite(5, HIGH);
+      digitalWrite(5, LOW);
       digitalWrite(6, LOW);
-      digitalWrite(7, LOW);
-      digitalWrite(8, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(8, LOW);
       return;
     }
     vfdDigit = timeString[0];
     break;
   }
   /*
-      A,1    
+      A,2    
       --- 
- F,6 | G | B,2 
+ F,7 | G | B,3 
       ---     
- E,5 | 7 | C,3       
+ E,6 | 8 | C,4       
       ---
-      D,4
+      D,5
   */
 
+  // turn on pins for the apropreate number in the string
   switch (vfdDigit)
   {
   case '0':
